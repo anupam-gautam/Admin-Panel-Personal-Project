@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using AdminPanelProject.Models;
 
+
+
 namespace AdminPanelProject.Controllers
 {
     [Route("api/[controller]")]
@@ -45,19 +47,18 @@ namespace AdminPanelProject.Controllers
         }
 
         //Admin Login
-        [HttpGet]
-        public IActionResult AdminLogin(string username, string pincode)
+        [Route("AdminLogin")]
+        [HttpPost]
+        public IActionResult AdminLogin([FromBody] AdminInformation model)
         {
             try
             {
-                var record = _context.AdminInformations.Where(u => u.Username == username && u.Pincode == pincode).ToList();
-                if (record != null)
+                var record = _context.AdminInformations.Where(u => u.Username == model.Username && u.Pincode == model.Pincode).ToList();
+                if (record == null)
                 {
-                    return Ok(record);
+                    return BadRequest();
                 }
-                return BadRequest();
-
-
+                return Ok(record);
             }
             catch (Exception ex)
             {

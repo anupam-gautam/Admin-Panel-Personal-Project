@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Home Page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <h1>Welcome</h1>
+    <hr />
+    <h2>Admin Login</h2>
+    <h4>Username</h4>
+    <input type="text" name="username" id="username" placeholder="Enter Username">
+    <h4>Pincode</h4>
+    <input type="text" name="pincode" id="pincode" placeholder="Enter Pincode">
+    <br /><br />
+    <input type="button" onclick="doLogin()" value="Log In">
+    <br />
+    <br />
+    <hr />
+    <label>If you are new to the system and want to register please signup here..</label>
+    <input type="button" onclick="doLogin()" value="Sign Up">
+</body>
+
+<script>
+    function doLogin() {
+
+        let username = $('#username').val();
+        let pincode = $('#pincode').val();
+        $.ajax({
+            type: "POST",
+            url: "/api/Admin/AdminLogin",
+            data: JSON.stringify({ 'Username': username, 'Pincode': pincode }),
+            dataType: "json",
+            contentType: 'application/json;charset=utf-8',
+            success: function (response) {
+                console.log(response);
+                window.location.replace("https://localhost:7287/StaticFiles/temp.html")
+            },
+            error: function (error) {
+                console.log("Jkjhkjdf");
+            }
+        });
+    }
+</script>
+</html>

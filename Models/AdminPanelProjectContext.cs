@@ -57,7 +57,7 @@ namespace AdminPanelProject.Models
 
             modelBuilder.Entity<CustomerInformation>(entity =>
             {
-                entity.HasNoKey();
+                //entity.HasNoKey();
 
                 entity.ToTable("Customer_Information");
 
