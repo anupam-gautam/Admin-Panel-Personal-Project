@@ -18,19 +18,20 @@ namespace AdminPanelProject.Controllers
 
 
         //Admin Registration
+        [Route("RegisterAdmin")]
         [HttpPost("AdminRegistration")]
-        public IActionResult RegisterAdmin(string name, string username, int mobile_number, string email, string pincode)
+        public IActionResult RegisterAdmin([FromBody] AdminInformation model)
         {
             try
             {
                 _context.AdminInformations.Add(new AdminInformation
                 {
 
-                    Name = name,
-                    Username = username,
-                    MobileNumber = mobile_number,
-                    Email = email,
-                    Pincode = pincode
+                    Name = model.Name,
+                    Username = model.Username,
+                    MobileNumber = model.MobileNumber,
+                    Email = model.Email,
+                    Pincode = model.Pincode
                 });
                 _context.SaveChanges();
                 return Ok(new
@@ -65,6 +66,7 @@ namespace AdminPanelProject.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Route("AddCustomer")]
         [HttpPost("AddCustomer")]
         public IActionResult AddCustomer(CustomerInformation customerInformation)
         {

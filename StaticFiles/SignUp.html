@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <h2>Sign Up page</h2>
+    <hr />
+    <h4>Name</h4>
+    <input type="text" name="name" id="name" placeholder="Enter Name">
+    <h4>Username</h4>
+    <input type="text" name="username" id="username" placeholder="Enter Username">
+    <h4>Mobile Number</h4>
+    <input type="text" name="mobile_number" id="mobile_number" placeholder="Enter Mobile Number">
+    <h4>Email</h4>
+    <input type="text" name="email" id="email" placeholder="Enter Email">
+    <h4>Pincode</h4>
+    <input type="text" name="pincode" id="pincode" placeholder="Enter Pincode">
+    <br /><br />
+    <input type="button" onclick="doSignUp()" value="SignUp">
+
+</body>
+<script>
+    function doSignUp() {
+        let name = $('#name').val();
+        let username = $('#username').val();
+        let mobile_number = $('#mobile_number').val();
+        let email = $('#email').val();
+        let pincode = $('#pincode').val();
+        $.ajax({
+            type: "POST",
+            url: "/api/Admin/RegisterAdmin",
+            data: JSON.stringify({ 'Name': name, 'Username': username, 'MobileNumber': mobile_number, 'Email': email, 'Pincode': pincode }),
+            dataType: "json",
+            contentType: 'application/json;charset=utf-8',
+            success: function (response) {
+                console.log(response);
+                window.location.replace("https://localhost:7287/StaticFiles/AdminDashboard.html");
+            },
+            error: function (error) {
+                console.log("Jkjhkjdf");
+            }
+        });
+    }
+</script>
+</html>

@@ -19,12 +19,11 @@
     <br />
     <hr />
     <label>If you are new to the system and want to register please signup here..</label>
-    <input type="button" onclick="doLogin()" value="Sign Up">
+    <input type="button" onclick="doSignUp()" value="Sign Up">
 </body>
 
 <script>
     function doLogin() {
-
         let username = $('#username').val();
         let pincode = $('#pincode').val();
         $.ajax({
@@ -35,12 +34,16 @@
             contentType: 'application/json;charset=utf-8',
             success: function (response) {
                 console.log(response);
-                window.location.replace("https://localhost:7287/StaticFiles/temp.html")
+                window.location.replace("https://localhost:7287/StaticFiles/AdminDashboard.html")
             },
             error: function (error) {
                 console.log("Jkjhkjdf");
             }
         });
+    }
+
+    function doSignUp() {
+        window.location.replace("https://localhost:7287/StaticFiles/signUp.html");
     }
 </script>
 </html>
