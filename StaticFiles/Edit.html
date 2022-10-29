@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <title></title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 <body>
-    <h2>Dashboard</h2>
-    <hr />
-    <h3>Add Customer</h3>
-    <h4>Full Name</h4>
+    <h4>Please enter the name of the user that you want to edit: </h4>
+    <label>Full Name</label>
     <input type="text" name="fullname" id="fullname" placeholder="Enter Name">
+    <h4>Enter Updated Values</h4>
     <h4>Address</h4>
     <input type="text" name="address" id="address" placeholder="Enter Address">
     <h4>Mobile Number</h4>
@@ -26,19 +26,11 @@
         <option value="true">Yes</option>
         <option value="false">No</option>
     </select>
-    <br />
-    <br />
-    <button type="button" onclick="addCustomer()">Add Customer</button>
-    </hr>
-    <h3>Edit Customer</h3>
-    <button type="button" onclick="editCustomer()">Edit Customer</button>
-    <h3>Delete Customer</h3>
-    <button type="button" onclick="deleteCustomer()">Edit Customer</button>
+    <button type="submit" onclick="editInfo()">Edit</button>
 
 </body>
-</html>
 <script>
-    function addCustomer() {
+    function editInfo() {
         let fullname = $('#fullname').val();
         let address = $('#address').val();
         let mobile_number = $('#mobile_number').val();
@@ -48,24 +40,19 @@
 
         let fund_amount = 1; /*$("#fund_amount option:selected").val();*/
         $.ajax({
-            type: "POST",
-            url: "/api/Admin/AddCustomer",
+            type: "PUT",
+            url: "/api/Admin/EditCustomer",
             data: JSON.stringify({ 'Name': fullname, 'Address': address, 'MobileNumber': mobile_number, 'BusinessType': business_type, 'LoanAmount': loan_amount, 'LoanPurpose': loan_purpose, /*'FundAmount': fund_amount*/ }),
             dataType: "json",
             contentType: 'application/json;charset=utf-8',
             success: function (response) {
                 console.log(response);
-                alert("Added Customer");
+                alert("Edited Customer");
             },
             error: function (error) {
                 console.log("Jkjhkjdf");
             }
         });
     }
-    function editCustomer() {
-        window.location = "https://localhost:7287/StaticFiles/Edit.html";   
-    }
-    function deleteCustomer() {
-        window.location = "https://localhost:7287/StaticFiles/Delete.html";  
-    }
 </script>
+</html>

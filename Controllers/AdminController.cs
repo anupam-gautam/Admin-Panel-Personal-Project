@@ -74,14 +74,13 @@ namespace AdminPanelProject.Controllers
             {
                 _context.CustomerInformations.Add(new CustomerInformation
                 {
-
                     Name = customerInformation.Name,
                     Address = customerInformation.Address,
                     MobileNumber = customerInformation.MobileNumber,
                     BusinessType = customerInformation.BusinessType,
                     LoanAmount = customerInformation.LoanAmount,
                     LoanPurpose = customerInformation.LoanPurpose,
-                    FundAmount = customerInformation.FundAmount,
+                    //FundAmount = customerInformation.FundAmount,
                 });
                 _context.SaveChanges();
                 return Ok(new
@@ -96,7 +95,7 @@ namespace AdminPanelProject.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Route("EditCustomer")]
         [HttpPut]
         public IActionResult EditCustomer(CustomerInformation customerInformation)
         {
@@ -108,7 +107,7 @@ namespace AdminPanelProject.Controllers
                     throw new Exception();
                 }
 
-                information.Name = customerInformation.Name;
+                //information.Name = customerInformation.Name;
                 information.Address = customerInformation.Address;
                 information.MobileNumber = customerInformation.MobileNumber;
                 information.BusinessType = customerInformation.BusinessType;
@@ -129,12 +128,13 @@ namespace AdminPanelProject.Controllers
             }
         }
 
+        [Route("DeleteCustomer")]
         [HttpDelete]
-        public IActionResult DeleteCustomer(string name, int mobilenumber)
+        public IActionResult DeleteCustomer(CustomerInformation customerInformation)
         {
             try
             {
-                CustomerInformation information = _context.CustomerInformations.Where(u => u.Name == name || u.MobileNumber == mobilenumber).FirstOrDefault();
+                CustomerInformation information = _context.CustomerInformations.Where(u => u.Name == customerInformation.Name).FirstOrDefault();
                 if (information == null)
                 {
                     throw new Exception();

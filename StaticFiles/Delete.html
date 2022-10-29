@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+    <label>Full Name</label>
+    <input type="text" name="fullname" id="fullname" placeholder="Enter Name">
+    <button type="submit" onclick="deleteInfo()">Delete</button>
+</body>
+<script>
+    function deleteInfo() {
+        let fullname = $('#fullname').val();
+        $.ajax({
+            type: "DELETE",
+            url: "/api/Admin/DeleteCustomer",
+            data: JSON.stringify({ 'name': fullname}),
+            dataType: "json",
+            contentType: 'application/json;charset=utf-8',
+            success: function (response) {
+                console.log(response);
+                alert("Deleted Customer");
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>
+</html>
