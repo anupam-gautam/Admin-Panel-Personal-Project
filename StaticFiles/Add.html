@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+    <h3>Add Customer</h3>
+    <h4>Full Name</h4>
+    <input type="text" name="fullname" id="fullname" placeholder="Enter Name">
+    <h4>Address</h4>
+    <input type="text" name="address" id="address" placeholder="Enter Address">
+    <h4>Mobile Number</h4>
+    <input type="text" name="mobile_number" id="mobile_number" placeholder="Enter Mobile Number">
+    <h4>Business Type</h4>
+    <input type="text" name="business_type" id="business_type" placeholder="Enter Business Type">
+    <h4>Loan Amount</h4>
+    <input type="text" name="loan_amount" id="loan_amount" placeholder="Enter Loan Amount">
+    <h4>Loan Purpose</h4>
+    <input type="text" name="loan_purpose" id="loan_purpose" placeholder="Enter Loan Purpose">
+    <h4>Fund Amount</h4>
+    <select id="fund_amount" name="fund_amount">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
+    <br />
+    <br />
+    <button type="button" onclick="addCustomer()">Add Customer</button>
+</body>
+<script>
+    function addCustomer() {
+        let fullname = $('#fullname').val();
+        let address = $('#address').val();
+        let mobile_number = $('#mobile_number').val();
+        let business_type = $('#business_type').val();
+        let loan_amount = $('#loan_amount').val();
+        let loan_purpose = $('#loan_purpose').val();
+
+        let fund_amount = 1; /*$("#fund_amount option:selected").val();*/
+        $.ajax({
+            type: "POST",
+            url: "/api/Admin/AddCustomer",
+            data: JSON.stringify({ 'Name': fullname, 'Address': address, 'MobileNumber': mobile_number, 'BusinessType': business_type, 'LoanAmount': loan_amount, 'LoanPurpose': loan_purpose, /*'FundAmount': fund_amount*/ }),
+            dataType: "json",
+            contentType: 'application/json;charset=utf-8',
+            success: function (response) {
+                console.log(response);
+                alert("Added Customer");
+            },
+            error: function (error) {
+                console.log("Jkjhkjdf");
+            }
+        });
+    }
+</script>
+</html>

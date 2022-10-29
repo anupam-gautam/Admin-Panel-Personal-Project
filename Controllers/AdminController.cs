@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AdminPanelProject.Models;
-
-
+using Microsoft.EntityFrameworkCore;
 
 namespace AdminPanelProject.Controllers
 {
@@ -152,6 +151,28 @@ namespace AdminPanelProject.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+        [HttpGet("{page}")]
+        public async Task<ActionResult<List<CustomerInformation>>> GetDbInfo(int page)
+        {
+            if (_context.CustomerInformations == null)
+                return NotFound();
+            var pageResults = 5f;
+            var pageCount = Math.Ceiling(_context.CustomerInformations.Count() / pageResults);
+
+            var information = await _context.CustomerInformations
+                .Skip((page-1) * (int)pageResults)
+                .Take((int)pageResults)
+                .ToListAsync();
+
+            var response = new CustomerInformationDto
+            {
+                CustomerInformations = information,
+                CurrentPages = page,
+                Pages = (int)pageCount
+            };
+             
+            return Ok(response);
         }
 
     }
