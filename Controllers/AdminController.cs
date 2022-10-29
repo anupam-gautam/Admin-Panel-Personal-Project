@@ -187,5 +187,18 @@ namespace AdminPanelProject.Controllers
             //return Ok(response);
         }
 
+        [HttpPost]
+        [Route("CustomerSearch")]
+        public IActionResult CustomerSearch(CustomerInformation model)
+        {
+            var dbItem = _context.CustomerInformations;
+            var test = dbItem.Where(u => u.Name == model.Name).ToList();
+            if (test != null)
+            {
+                return Ok(test);
+            }
+            return BadRequest();
+        }
+
     }
 }

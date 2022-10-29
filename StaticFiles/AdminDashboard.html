@@ -9,6 +9,11 @@
     <h2>Dashboard</h2>
     <hr />
     <h3>Customer User Information</h3>
+    <label>Search Here:</label>
+    <input type="text" name="fullname" id="fullname" placeholder="Enter Name to search in record">
+    <button type="button" onclick="searchCustomer()">Search Record</button>
+    <br />
+    <hr />
     <table>
         <div id="sorting"></div>
 
@@ -32,7 +37,7 @@
     <h3>Edit Customer</h3>
     <button type="button" onclick="editCustomer()">Edit Customer</button>
     <h3>Delete Customer</h3>
-    <button type="button" onclick="deleteCustomer()">Edit Customer</button>
+    <button type="button" onclick="deleteCustomer()">Delete Customer</button>
 
 </body>
 </html>
@@ -77,6 +82,43 @@
         }
     });
 
+    function searchCustomer() {
+        let name = $("#fullname").val();
+        $.ajax({
+            type: "POST",
+            url: "/api/Admin/CustomerSearch",
+            data: JSON.stringify({ "Name": name }),
+            dataType: "json",
+            contentType: 'application/json;charset=utf-8',
+            success: function (data) {
+                $('#tBody').empty();
+                var trHTML = '';
+                for (var i = 0; i < data.length; i++) {
+                    trHTML =
+                        '<tr><td>'
+                        + data[i].id
+                        + '</td><td>'
+                        + data[i].name
+                        + '</td><td>'
+                        + data[i].address
+                        + '</td><td>'
+                        + data[i].mobileNumber
+                        + '</td><td>'
+                        + data[i].businessType
+                        + '</td><td>'
+                        + data[i].loanAmount
+                        + '</td><td>'
+                        + data[i].loanPurpose
+                        + '</td><td>'
+                        + data[i].fundAmount
+                        + '</td></tr>';
+                }
+
+                $('#tBody').append(trHTML);
+
+            }
+        });
+    }
 
     function addCustomer() {
         window.location = "https://localhost:7287/StaticFiles/Add.html";
