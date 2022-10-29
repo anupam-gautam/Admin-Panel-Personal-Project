@@ -27,7 +27,7 @@
         <tbody id="tBody"></tbody>
     </table>
     <h3>Add Customer</h3>
-    <button type="button" onclick="addCustomer()">Edit Customer</button>
+    <button type="button" onclick="addCustomer()">Add Customer</button>
     </hr>
     <h3>Edit Customer</h3>
     <button type="button" onclick="editCustomer()">Edit Customer</button>
@@ -39,41 +39,52 @@
 <script>
     $.ajax({
         type: "GET",
-        url: "/api/DbInfo/GetDbInfo",
-        data: {
-            "page": page
-        },
-        dataType: "json",
+        url: "/api/Admin/GetDbInfo",
+        //data: {
+        //    "page": page
+        //},
+        /*dataType: "json",*/
         contentType: 'application/json;charset=utf-8',
         success: function (data) {
+            console.log("Controller hitted")
+            $('#tBody').empty();
+            var trHTML = '';
+            var i = 0;
+            for (i = 0; i < 10; i++) {
+                trHTML =
+                    '<tr><td>'
+                    + data[i].id
+                    + '</td><td>'
+                    + data[i].name
+                    + '</td><td>'
+                    + data[i].address
+                    + '</td><td>'
+                    + data[i].mobileNumber
+                    + '</td><td>'
+                    + data[i].businessType
+                    + '</td><td>'
+                    + data[i].loanAmount
+                    + '</td><td>'
+                    + data[i].loanPurpose
+                    + '</td><td>'
+                    + data[i].fundAmount
+                    + '</td></tr>';
+                $('#tBody').append(trHTML);
 
-            firstBtnHTML = '<button onclick="returnPaginationData(' + page + ')">First</button>';
-            $('#pagination').append(firstBtnHTML);
-
-            //prevBtnHTML = '<button onclick="returnPaginationData(' + (page--) + ')">Previous</button>';
-            //$('#pagination').append(prevBtnHTML);
-
-            //nextBtnHTML = '<button onclick="returnPaginationData(' + (page++) + ')">Next</button>';
-            //$('#pagination').append(nextBtnHTML);
-
-            lastBtnHTML = '<button onclick="returnPaginationData(' + data.pages + ')">Last </button>';
-            $('#pagination').append(lastBtnHTML);
-            //for (var i = 0; i < data.pages; i++) {
-            //    btnHTML = '<button onclick="returnPaginationData(' + (i + 1) + ')">' + (i + 1) + '</button>' ;
-            //    $('#pagination').append(btnHTML);
-            //}
+            }
+            $('#pagination').empty();
 
         }
     });
 
 
     function addCustomer() {
-        window.location = "https://localhost:7287/StaticFiles/Add.html";   
+        window.location = "https://localhost:7287/StaticFiles/Add.html";
     }
     function editCustomer() {
-        window.location = "https://localhost:7287/StaticFiles/Edit.html";   
+        window.location = "https://localhost:7287/StaticFiles/Edit.html";
     }
     function deleteCustomer() {
-        window.location = "https://localhost:7287/StaticFiles/Delete.html";  
+        window.location = "https://localhost:7287/StaticFiles/Delete.html";
     }
 </script>
